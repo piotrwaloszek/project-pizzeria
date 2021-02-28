@@ -78,6 +78,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
     initAccordion(){
       const thisProduct = this;
@@ -111,23 +112,33 @@
     }
     processOrder(){
       const thisProduct = this;
-      console.log('processOrder:', thisProduct);
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData:', formData);
       let price = thisProduct.data.price;
       for (let paramId in thisProduct.data.params) {
         const param = thisProduct.data.params[paramId];
         for (let optionId in param.options) {
           const option = param.options[optionId];
-          if (formData[paramId] && formData[paramId].includes(optionId)) {
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+          const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          if (optionSelected) {
             if (!option.default) {
               price = price + option.price;
-            } else if (option.default) {
-              price = price + option.price;
+            } else {
+              if(option.default) {
+                price = price + option.price;
+              }
+            }
+            if(optionImage){
+              if(optionSelected){
+                optionImage.classList.add(classNames.menuProduct.imageVisible);
+              }else if(!optionSelected){
+                optionImage.classList.remove(classNames.menuProduct.imageVisible);
+              }
+              console.log('optionImage:',optionImage);
             }
           }
-          thisProduct.priceElem.innerHTML = price;
         }
+        thisProduct.priceElem.innerHTML = price;
       }
     }
   }
