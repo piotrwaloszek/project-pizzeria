@@ -128,13 +128,12 @@
                 price = price + option.price;
               }
             }
-            if(optionImage){
-              if(optionSelected){
-                optionImage.classList.add(classNames.menuProduct.imageVisible);
-              }else if(!optionSelected){
-                optionImage.classList.remove(classNames.menuProduct.imageVisible);
-              }
-              console.log('optionImage:',optionImage);
+          }
+          if(optionImage){
+            if(optionSelected){
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+            }else if(!optionSelected){
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
             }
           }
         }
