@@ -127,14 +127,10 @@
           const option = param.options[optionId];
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          if (optionSelected) {
-            if (!option.default) {
-              price = price + option.price;
-            } else {
-              if(option.default) {
-                price = price + option.price;
-              }
-            }
+          if (optionSelected && !option.default) {
+            price = price + option.price;
+          } else if (!optionSelected && option.default){
+            price = price - option.price;
           }
           if(optionImage){
             if(optionSelected){
@@ -144,9 +140,9 @@
             }
           }
         }
-        price *= thisProduct.amountWidget.value;
-        thisProduct.priceElem.innerHTML = price;
       }
+      price *= thisProduct.amountWidget.value;
+      thisProduct.priceElem.innerHTML = price;
     }
   }
   class AmountWidget{
