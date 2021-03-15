@@ -1,5 +1,5 @@
-import {select,} from '/js/settings.js';
-import AmountWidget from '/js/Components/AmountWidget.js';
+import { select } from '../settings.js';
+import AmountWidget from '../components/AmountWidget.js ';
 
 class CartProduct {
   constructor(menuProduct, element) {
@@ -7,9 +7,9 @@ class CartProduct {
     thisCartProduct.id = menuProduct.id;
     thisCartProduct.name = menuProduct.name;
     thisCartProduct.amount = menuProduct.amount;
-    thisCartProduct.priceSingle = menuProduct.priceSingle;
-    thisCartProduct.price = menuProduct.price;
     thisCartProduct.params = menuProduct.params;
+    thisCartProduct.price = menuProduct.price;
+    thisCartProduct.priceSingle = menuProduct.priceSingle;
     thisCartProduct.getElements(element);
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
@@ -32,38 +32,37 @@ class CartProduct {
       thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
     });
   }
-  remove(){
+  remove() {
     const thisCartProduct = this;
     const event = new CustomEvent('remove', {
       bubbles: true,
       detail: {
-        cartProduct: thisCartProduct,
-      },
-    });
-    thisCartProduct.dom.wrapper.dispatchEvent(event);
-  }
-  initActions(){
-    const thisCartProduct = this;
-    thisCartProduct.dom.edit.addEventListener('click', function () {
-      event.preventDefault();
+        cartProduct: thisCartProduct
+      }
     });
 
+    thisCartProduct.dom.wrapper.dispatchEvent(event);
+
+  }
+  initActions() {
+    const thisCartProduct = this;
+    thisCartProduct.dom.edit.addEventListener('click', function () { });
     thisCartProduct.dom.remove.addEventListener('click', function () {
-      event.preventDefault();
       thisCartProduct.remove();
     });
   }
-  getData(){
+  getData() {
     const thisCartProduct = this;
-    const productSummary = {};
-    productSummary.id = thisCartProduct.id;
-    productSummary.name = thisCartProduct.name;
-    productSummary.amount = thisCartProduct.amountWidget.value;
-    productSummary.priceSingle = thisCartProduct.priceSingle;
-    productSummary.price = thisCartProduct.price;
-    productSummary.params = JSON.parse(JSON.stringify(thisCartProduct.params));
-    return productSummary;
+
+    const products = {
+      id: thisCartProduct.id,
+      amount: thisCartProduct.amount,
+      price: thisCartProduct.price,
+      priceSingle: thisCartProduct.priceSingle,
+      name: thisCartProduct.name,
+      params: thisCartProduct.params,
+    };
+    return products;
   }
 }
-
 export default CartProduct;
