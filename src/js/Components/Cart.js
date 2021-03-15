@@ -65,7 +65,7 @@ class Cart {
     thisCart.totalPrice = thisCart.subTotalPrice + thisCart.deliveryFee;
     if (thisCart.subTotalPrice === 0 && thisCart.deliveryFee === 20) {
       thisCart.dom.totalPrice.innerHTML = '0';
-      thisCart.dom.totalPrice2.innerHTML = "0";
+      thisCart.dom.totalPrice2.innerHTML = '0';
     } else {
       thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice;
       thisCart.dom.totalPrice2.innerHTML = thisCart.totalPrice;
