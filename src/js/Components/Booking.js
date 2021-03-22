@@ -7,12 +7,10 @@ import HourPicker from './HourPicker.js';
 class Booking {
   constructor(element){
     const thisBooking = this;
-
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.reservationTable = null;
-
   }
   getData(){
     const thisBooking = this;
@@ -41,6 +39,9 @@ class Booking {
       eventsRepeat:  settings.db.url + '/' + settings.db.event
                                      + '?' + params.eventsRepeat.join('&'),
     };
+
+    // console.log('getData urls', urls);
+
     Promise.all([
       fetch(urls.booking),
       fetch(urls.eventsCurrent),
@@ -57,6 +58,9 @@ class Booking {
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]){
+        // console.log('bookings', bookings);
+        // console.log('eventsCurrent', eventsCurrent);
+        // console.log('eventsRepeat', eventsRepeat);
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
@@ -87,6 +91,7 @@ class Booking {
     }
     const startHour = utils.hourToNumber(hour);
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5){
+      // console.log('loop', hourBlock);
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
         thisBooking.booked[date][hourBlock] = [];
       }
@@ -191,6 +196,7 @@ class Booking {
     payload.starters = [];
     payload.phone = thisBooking.dom.phone.value;
     payload.address = thisBooking.dom.address.value;
+
     for(let starter of thisBooking.dom.starters){
       if(starter.checked == true){
         payload.starters.push(starter.value);
