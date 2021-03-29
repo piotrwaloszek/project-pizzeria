@@ -1,1 +1,1 @@
-https://pizzeriaprojectkodilla.herokuapp.com/
+https://pizzeriakodilla.herokuapp.com
